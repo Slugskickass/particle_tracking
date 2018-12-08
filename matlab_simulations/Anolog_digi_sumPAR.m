@@ -3,10 +3,10 @@ clear
 % resultsca = [];
 % resultsfa = [];
 % mark = [repmat(0,[1,29]),1:0.5:100];
-mark = 30:2:90;
+mark = 20;
 fprintf('Progress:\n');
-fprintf(['\n' repmat('.',1,29) '\n\n']);
-parfor s = 1:29
+fprintf(['\n' repmat('.',1,size(mark,2)) '\n\n']);
+for s = 1:size(mark,2)
     s;
     [p,q,r] = parfunc2(s,mark);
     resultsn{s} = p;

@@ -1,7 +1,7 @@
 function [wn,wc,wf] = parfunc2(s,mark)
 %UNTITLED2 Summary of this function goes here
 %   Detailed explanation goes here
-nrep = 10;
+nrep = 1;
 wn = zeros(nrep,6);
 wc = zeros(nrep,6);
 wf = zeros(nrep,6);
@@ -71,7 +71,7 @@ for rep = 1:nrep
         posafit(i,1) = m+1;
         posafit(i,2) = n+1;
         %%CMOS SUM
-%         h = sum(CMOSsensor(:,:,i:i+exposure),3);
+        h = sum(CMOSsensor(:,:,i:i+exposure),3);
 %         [m,n] = max(h(:));
 %         [m,n] = ind2sub([sensorwidth,sensorheight],n);
         cutscmos(:,:,i) = h(m-5:m+5,n-5:n+5);
