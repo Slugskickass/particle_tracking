@@ -1,7 +1,7 @@
-function [wn,wc,wf] = parfunc2(s,mark)
+function [wn,wc,wf] = parfunc2(s,mark,nrep)
 %UNTITLED2 Summary of this function goes here
 %   Detailed explanation goes here
-nrep = 1;
+% nrep = 1;
 wn = zeros(nrep,6);
 wc = zeros(nrep,6);
 wf = zeros(nrep,6);

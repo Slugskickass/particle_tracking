@@ -3,12 +3,21 @@ clear
 % resultsca = [];
 % resultsfa = [];
 % mark = [repmat(0,[1,29]),1:0.5:100];
-mark = 20;
+mark = 10:5:100;
+nrep = 100;
+poolobj = gcp('nocreate');
+if isempty(poolobj)
+    c = parcluster;
+    parpool(c);
+end
+warning off
+pctRunOnAll warning off
 fprintf('Progress:\n');
 fprintf(['\n' repmat('.',1,size(mark,2)) '\n\n']);
-for s = 1:size(mark,2)
+
+parfor s = 1:size(mark,2)
     s;
-    [p,q,r] = parfunc2(s,mark);
+    [p,q,r] = parfunc2(s,mark,nrep);
     resultsn{s} = p;
     resultsc{s} = q;
     resultsf{s} = r;
