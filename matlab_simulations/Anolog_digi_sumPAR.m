@@ -1,10 +1,7 @@
 clear
-% resultsna = [];
-% resultsca = [];
-% resultsfa = [];
-% mark = [repmat(0,[1,29]),1:0.5:100];
-mark = 10:5:100;
-nrep = 100;
+
+mark = 10:5:20;
+nrep = 50;
 poolobj = gcp('nocreate');
 if isempty(poolobj)
     c = parcluster;
@@ -22,9 +19,20 @@ parfor s = 1:size(mark,2)
     resultsc{s} = q;
     resultsf{s} = r;
     fprintf('\b|\n');
-
-    %mark = mark+1;
 end
+
+
+%% Unpack
+
+results_store = [];
+num = 0;
+for i = 1:size(resultsc,2)
+    results_storec(:,:,i) = cell2mat(resultsc(i));
+    results_storen(:,:,i) = cell2mat(resultsn(i));
+    results_storef(:,:,i) = cell2mat(resultsf(i));
+end
+
+
 
 %%
 mc = [];

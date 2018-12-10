@@ -8,7 +8,7 @@ wf = zeros(nrep,6);
 
 for rep = 1:nrep
     vari = s;
-    nframes = 1000; %number of frames
+    nframes = 500; %number of frames
     
     %sensor info
     sensorwidth = 250;
