@@ -1,7 +1,7 @@
 clear
 
-mark = 10:5:20;
-nrep = 50;
+mark = 10:5:100;
+nrep = 100;
 poolobj = gcp('nocreate');
 if isempty(poolobj)
     c = parcluster;
@@ -12,7 +12,7 @@ pctRunOnAll warning off
 fprintf('Progress:\n');
 fprintf(['\n' repmat('.',1,size(mark,2)) '\n\n']);
 
-parfor s = 1:size(mark,2)
+for s = 1:size(mark,2)
     s;
     [p,q,r] = parfunc2(s,mark,nrep);
     resultsn{s} = p;
@@ -39,14 +39,17 @@ mc = [];
 errorc = [];
 mn = [];
 errorn = [];
-for i = 1:size(resultsc,3)
+for i = 1:size(results_storec,3)
     i
-    mc(i) = mean([resultsc(:,3,i);resultsc(:,5,i)]);
-    errorc(i) = std([resultsc(:,3,i);resultsc(:,5,i)]);
-    mn(i) = mean([resultsn(:,3,i);resultsn(:,5,i)]);
-    errorn(i) = std([resultsn(:,3,i);resultsn(:,5,i)]);
+    mc(i) = mean([results_storec(:,3,i);results_storec(:,5,i)]);
+    errorc(i) = std([results_storec(:,3,i);results_storec(:,5,i)]);
+    mn(i) = mean([results_storen(:,3,i);results_storen(:,5,i)]);
+    errorn(i) = std([results_storen(:,3,i);results_storen(:,5,i)]);
+    mf(i) = mean([results_storef(:,3,i);results_storef(:,5,i)]);
+    errorf(i) = std([results_storef(:,3,i);results_storef(:,5,i)]);
 end
 
 errorbar(mc,errorc)
 hold on
 errorbar(mn,errorn)
+errorbar(mf,errorf)
