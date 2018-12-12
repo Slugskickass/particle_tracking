@@ -49,6 +49,7 @@ for rep = 1:nrep
     fitted = zeros(11,11,size(NDRsensor,3)-exposure);
     cutscmos = zeros(11,11,round(size(CMOSsensor,3)-exposure));
     posc2 = zeros(size(NDRsensor,3)-exposure,2);
+    [X,Y] = meshgrid(1:11,1:11);
     for i = 1:size(NDRsensor,3)-exposure %extract single molecules
         %%%%% NDR CDS
         m = round(mean(coords(1:1+exposure,1)));
@@ -59,12 +60,16 @@ for rep = 1:nrep
         %%%%% Fitting
         block = NDRsensor(m-5:m+5,n-5:n+5,i:i+exposure-1);
         xvals = 1:exposure;
-        for x = 1:size(block,1)
-            for y = 1:size(block,2)
-                vals = squeeze(block(x,y,:));
-                p = polyfit(xvals,vals.',1);
-                fitted(x,y,i) = p(1)*s;
-            end
+        %         for x = 1:size(block,1)
+        %             for y = 1:size(block,2)
+        %                 vals = squeeze(block(x,y,:));
+        %                 p = polyfit(xvals,vals.',1);
+        %                 fitted(x,y,i) = p(1)*s;
+        %             end
+        %         end
+        for x = 1:numel(X)
+            temp = [ones(1,exposure); xvals]' \ squeeze(block(X(x),Y(x),:));
+            fitted(X(x),Y(x),i) = temp(2);
         end
         posafit(i,1) = m+1;
         posafit(i,2) = n+1;
