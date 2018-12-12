@@ -1,7 +1,7 @@
 clear
-
-mark = 10:5:100;
-nrep = 100;
+tic
+mark = 5:5:100;
+nrep = 50;
 poolobj = gcp('nocreate');
 if isempty(poolobj)
     c = parcluster;
@@ -12,7 +12,7 @@ pctRunOnAll warning off
 fprintf('Progress:\n');
 fprintf(['\n' repmat('.',1,size(mark,2)) '\n\n']);
 
-for s = 1:size(mark,2)
+parfor s = 1:size(mark,2)
     s;
     [p,q,r] = parfunc2(s,mark,nrep);
     resultsn{s} = p;
@@ -21,7 +21,7 @@ for s = 1:size(mark,2)
     fprintf('\b|\n');
 end
 
-
+toc
 %% Unpack
 
 results_store = [];

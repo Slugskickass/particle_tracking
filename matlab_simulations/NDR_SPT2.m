@@ -14,6 +14,8 @@ sensornoise(:,:,1) = round((randn(sensorwidth, sensorheight)*NDR_rms)+NDR_floor)
 [R,C] = ndgrid(1:11, 1:11);
 reset_tracker = 1;
 counter = 1;
+dark = 1;
+darknoise = .1;
 for j = 1:nframes
     if reset_tracker == reset
         sensornoise(:,:,j+1) = round((randn(sensorwidth, sensorheight)*NDR_rms)+NDR_floor);
@@ -28,8 +30,13 @@ for j = 1:nframes
     right = uint16(floor(coords(j,1))+size(R,1)/2-1);
     top = uint16(floor(coords(j,2))-size(C,1)/2);
     bottom = uint16(floor(coords(j,2))+size(R,1)/2-1);
-    sensorraw(left:right, top:bottom) = sensorraw(left:right, top:bottom) + valmat; %clean frame to add noise to
-    sensornoise(:,:,j+1) = sensornoise(:,:,1) + sensorraw + round((randn(sensorwidth, sensorheight)*ReadNoise))+NDR_noiseInc; %update sensor
+    if dark == 0
+        sensorraw(left:right, top:bottom) = sensorraw(left:right, top:bottom) + valmat; %clean frame to add noise to
+    else
+        sensorraw(left:right, top:bottom) = sensorraw(left:right, top:bottom) + valmat;  %clean frame to add noise to
+        sensorraw = sensorraw + round((randn(sensorwidth, sensorheight)*darknoise+2));
+    end
+    sensornoise(:,:,j+1) = sensornoise(:,:,1) + sensorraw + round((randn(sensorwidth, sensorheight)*ReadNoise)); %update sensor
     
     counter = counter+1;
     

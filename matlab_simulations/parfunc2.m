@@ -45,17 +45,15 @@ for rep = 1:nrep
     
     posa = zeros(size(NDRsensor,3)-exposure,2);
     cuts = zeros(11,11,round(size(NDRsensor,3)-exposure));
-    afit = zeros(size(NDRsensor,3)-exposure,6);
     posafit = zeros(size(NDRsensor,3)-exposure,2);
     fitted = zeros(11,11,size(NDRsensor,3)-exposure);
     cutscmos = zeros(11,11,round(size(CMOSsensor,3)-exposure));
     posc2 = zeros(size(NDRsensor,3)-exposure,2);
     for i = 1:size(NDRsensor,3)-exposure %extract single molecules
         %%%%% NDR CDS
-        h = NDRsensor(:,:,i+exposure)-NDRsensor(:,:,i);
-        [m,n] = max(h(:));
-        [m,n] = ind2sub([sensorwidth,sensorheight],n);
-        cuts(:,:,i) = h(m-5:m+5,n-5:n+5);
+        m = round(mean(coords(1:1+exposure,1)));
+        n = round(mean(coords(1:1+exposure,2)));
+        cuts(:,:,i) = NDRsensor(m-5:m+5,n-5:n+5,i+exposure)-NDRsensor(m-5:m+5,n-5:n+5,i);
         posa(i,1) = m+1;
         posa(i,2) = n+1;
         %%%%% Fitting
@@ -71,10 +69,7 @@ for rep = 1:nrep
         posafit(i,1) = m+1;
         posafit(i,2) = n+1;
         %%CMOS SUM
-        h = sum(CMOSsensor(:,:,i:i+exposure),3);
-%         [m,n] = max(h(:));
-%         [m,n] = ind2sub([sensorwidth,sensorheight],n);
-        cutscmos(:,:,i) = h(m-5:m+5,n-5:n+5);
+        cutscmos(:,:,i) = sum(CMOSsensor(m-5:m+5,n-5:n+5,i:i+exposure),3);
         posc2(i,1) = m+1;
         posc2(i,2) = n+1;
     end
