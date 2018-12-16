@@ -12,7 +12,7 @@ from multiprocessing import Pool
 # For decimated set cut_offset = 10
 print(os.listdir('./'))
 #  file_name = '/Users/Ashley/Desktop/25percbeads100RDIVIDE2.tsm'
-file_name = '25percbeads100RDIVIDE2.tsm'
+file_name = '/Users/Ashley/Desktop/Untitled014.tsm'
 
 Image_stack = Stack.Stack(file_name)                 # This defines the data as a class which provides some advantages
 
@@ -24,7 +24,7 @@ print('There are ' + str(Image_stack.number_of_stacks) + ' Blocks in the file')
 
 slice_size = 10
 start_block = 0
-end_block = 99 # 99
+end_block = 10 # 99
 
 
 cut_offset = 10

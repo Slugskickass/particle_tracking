@@ -3,7 +3,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # print(os.listdir('/Users/Ashley/Desktop/'))
-file_name = '/Users/Ashley/Desktop/decimated.csv'
+file_name = '/Users/Ashley/Desktop/NDR_tracker/slidding.csv'
+
+
 df = pd.read_csv(file_name)
 tracks = df['TRACK_ID']
 tracks = tracks.str.replace('None', '0', case=False)
@@ -16,5 +18,7 @@ for I in range(np.max(tracks)):
     df1 = out.iloc[:, 4:6]
     hold_traces.append(np.asarray(df1))
 
-plt.plot(hold_traces[4][:, 0], hold_traces[4][:, 1])
+for I in range(np.max(tracks)):
+    plt.plot(hold_traces[I][:, 0], hold_traces[I][:, 1])
 plt.show()
+

@@ -35,7 +35,6 @@ def slidding_data(Image_stack, slice_size, start_block, end_block):
         for I in range(slice_size, Image_stack.difference, 1):
             final_data.append(np.float32(np.float32(data[I, :, :]) - np.float32(data[I-slice_size, :, :])))
     final_data = np.asarray(final_data)
-    final_data = np.uint16(final_data)
     return final_data
 
 def fitted_decimate_data(Image_stack, slice_size, start_block, end_block):

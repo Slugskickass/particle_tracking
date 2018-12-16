@@ -4,7 +4,6 @@ import imageio
 directory = './'
 
 
-
 def list_files(directory, ending):
     files = os.listdir(directory)
     list = []
@@ -13,14 +12,13 @@ def list_files(directory, ending):
             list.append(file)
     return list
 
-a = list_files(directory, 'npy')
 
-data =[]
+a = list_files(directory, '.npy')
+a.sort()
+data = []
 for file_name in a:
-    data.extend(np.load(file_name))
-print(np.shape(data))
-print(type(data))
-data = np.asarray(data)
-print(type(data))
-data = np.float32(data)
-#imageio.mimwrite('decimated_fitted.tiff', data)
+    print(file_name)
+    temp = np.load(file_name)
+    temp = np.float32(temp)
+    data.extend(temp)
+imageio.mimwrite('sliding_fitted.tiff', data, bigtiff=True)
