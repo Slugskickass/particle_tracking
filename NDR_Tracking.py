@@ -3,6 +3,7 @@ import numpy as np
 from scipy import stats
 import time
 from multiprocessing import Pool
+from multiprocessing import get_context
 
 def fit_line(line_data):
     cut_section_length = 10
@@ -68,11 +69,12 @@ def fitted_decimate_data(Image_stack, slice_size, start_block, end_block):
 
 
 def fitted_decimate_single_black(data, pool):
-    result = []
-    for X in range(456): # change this to the data height
-        result.append(data[0:10, X, :])
-#    pool = Pool(processes=10)
-    final_data = pool.map(fit_line, result)
+    with get_context("spawn").Pool() as pool:
+        result = []
+        for X in range(456): # change this to the data height
+            result.append(data[0:10, X, :])
+    #    pool = Pool(processes=10)
+        final_data = pool.map(fit_line, result)
     return final_data
 
 
