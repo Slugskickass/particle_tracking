@@ -128,7 +128,7 @@ class Stack(object):
         selected_points = np.array(np.where(mean_line_data > 10 * mean_value))
         diff_points = np.diff(selected_points[0])
         selected_points = 1 + selected_points[0][0]
-        diff_points = np.int8(np.mean(diff_points))
+        diff_points = np.int16(np.mean(diff_points))
         return selected_points, diff_points
 
 
