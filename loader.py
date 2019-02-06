@@ -21,4 +21,4 @@ for file_name in a:
     temp = np.load(file_name)
     temp = np.float32(temp)
     data.extend(temp)
-imageio.mimwrite('sliding_fitted.tiff', data, bigtiff=True)
+imageio.mimwrite('longer.tiff', data, bigtiff=True)
